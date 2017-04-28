@@ -4,6 +4,15 @@ session_start();
 if(!isset($_SESSION["uid"])){
 	header("location:index.php");
 }
+
+$trx_id = $_GET["tx"];
+$p_st = $_GET["st"];
+$amt = $_GET["amt"];
+$cc = $_GET["cc"];
+$cm = $_GET["cm"];
+$c_amt = $_COOKIE["ta"];
+
+
 ?>
 
 
@@ -30,7 +39,7 @@ if(!isset($_SESSION["uid"])){
 			</div>
 			<ul class="nav navbar-nav">
 				<li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Etusivu</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-modal-window"></span> Tuotteet</a></li>
+				<li><a href="index.php"><span class="glyphicon glyphicon-modal-window"></span> Tuotteet</a></li>
 			</ul>
 		</div>
 	</div>
@@ -46,7 +55,7 @@ if(!isset($_SESSION["uid"])){
 					<div class="panel-body">
 						<h1>Kiitos tilauksesta</h1>
 						<hr/>
-						<p>Hei <?php echo $_SESSION["name"]; ?>, Maksuprosessi on onnistuneesti tehty ja tilausnumerosi on<b></b><br/>
+						<p>Hei <?php echo $_SESSION["name"]; ?>, Maksuprosessi on onnistuneesti tehty ja tilausnumerosi on <b><?php echo $trx_id;  ?></b><br/>
 						Voit jatkaa shoppailua tästä <br/></p>
 						<a href="index.php" class="btn btn-success btn-lg">Jatkaa shoppailua</a>
 					</div>

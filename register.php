@@ -1,5 +1,5 @@
 <?php
-
+//asiakkaan rekisteröitymisen lomakkeen php koodi
 include "db.php";
 
 $e_nimi = $_POST["e_nimi"];

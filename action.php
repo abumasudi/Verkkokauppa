@@ -133,10 +133,9 @@ if(isset($_POST["get_selected_Kategori"]) || isset($_POST["selectBrand"]) || iss
 		}
 	}
 	
-	
-		
-			if(isset($_POST["lisaakoriin"])){
-		
+
+			
+		if(isset($_POST["lisaakoriin"])){
 		if(isset($_SESSION["uid"])){
 			$p_id = $_POST["proId"];
 			$user_id = $_SESSION["uid"];
@@ -151,9 +150,9 @@ if(isset($_POST["get_selected_Kategori"]) || isset($_POST["selectBrand"]) || iss
 				</div>
 			";
 		} else {
-			$sql = "SELECT * FROM tuotteet WHERE tuotteen_id = '$p_id'";
-			$run_query = mysqli_query($con,$sql);
-			$row = mysqli_fetch_array($run_query);
+				$sql = "SELECT * FROM tuotteet WHERE tuotteen_id = '$p_id'";
+				$run_query = mysqli_query($con,$sql);
+				$row = mysqli_fetch_array($run_query);
 				$id = $row["tuotteen_id"];
 				$tuot_name = $row["tuotteen_nimi"];
 				$tuot_image = $row["tuotteen_kuva"];
@@ -173,7 +172,8 @@ if(isset($_POST["get_selected_Kategori"]) || isset($_POST["selectBrand"]) || iss
 			}
 		}
 		}else{
-			echo "
+		//ilman tunnusta ei pysty lisää tuotetta ostoskoriin
+		echo "
 					<div class='alert alert-success'>
 						<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
 						<b>Pahoittelut..! Mene ja rekisteröidy asiakkaaksi, jotta voit lisätä tuotteita ostoskoriin!</b>
@@ -185,7 +185,10 @@ if(isset($_POST["get_selected_Kategori"]) || isset($_POST["selectBrand"]) || iss
 		
 		
 	}
-	// Tuotteen siirtäminen ostoskoriin ja ostos_checkin sivulle + muut toiminnot
+			
+	
+	
+	// Tuotteen siirtäminen ostoskoriin ja ostos_checkin sivulle + muut toiminnot + paypal toiminto kesken
 	if(isset($_POST["tuote_ostoskorissa"]) || isset($_POST["ostos_tarkistus"])){
 	$uid = $_SESSION["uid"];
 	$sql = "SELECT * FROM cart WHERE user_id = '$uid'";
@@ -240,10 +243,48 @@ if(isset($_POST["get_selected_Kategori"]) || isset($_POST["selectBrand"]) || iss
 			echo	"<div class='row'>
 					<div class='col-md-8'></div>
 					<div class='col-md-4'>
-						<b>Yhteensä: $koko_amt €</b>
+						<h2>Yhteensä: $koko_amt €</h2>
 					</div>
 					</div>";
 		}
+		
+		echo '
+
+		
+		
+		
+		<form target="paypal" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+				<input type="hidden" name="cmd" value="_cart">
+				<input type="hidden" name="business" value="verkkokauppa_php@verkkokauppa.com">
+				<inpu type="hidden" name="upload" value="1">' ;
+		  
+		  $x=0;
+				  $uid = $_SESSION["uid"];
+				  $sql = "SELECT * FROM cart WHERE user_id = '$uid'";
+				  $run_query = mysqli_query($con,$sql);
+				  while($row=mysqli_fetch_array($run_query)){
+					  $x++;
+		  
+		echo   '<input type="hidden" name="item_name_'.$x.'" value="'.$row["tuotteen_nimi"].'">
+				<input type="hidden" name="item_number_'.$x.'" value="'.$x.'">
+				<input type="hidden" name="amount_'.$x.'" value="'.$row["hinta"].'"
+				<input type="hidden" name="quantity_'.$x.'" value="'.$row["qty"].'">';
+				  }
+		  
+		echo  '
+				<input type="hidden" name="return" value="http://www.abumasudi.esy.es/Verkkokauppa/maksu_ok.php"/>
+				<input type="hidden" name="cancel_return" value="http://www.abumasudi.esy.es/Verkkokauppa/cancel.php"/>
+				<input type="hidden" name="currency_code" value="Euro"/>
+				<input type="hidden" name="custom" value="'.$uid.'"/>
+				<br></br>
+				<input style="float:right;" type="image" name="submit"
+					src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/blue-rect-paypalcheckout-60px.png" alt="PayPal Checkout"
+					alt="PayPal - The safer, easier way to pay online">
+				
+	</form
+		
+		
+		';
 		
 	}
 	}

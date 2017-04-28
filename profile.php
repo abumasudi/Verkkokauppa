@@ -27,7 +27,7 @@ if(!isset($_SESSION["uid"])){
 			</div>
 			<ul class="nav navbar-nav">
 				<li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Etusivu</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-modal-window"></span> Tuotteet</a></li>
+				<li><a href="index.php"><span class="glyphicon glyphicon-modal-window"></span> Tuotteet</a></li>
 				<li style="width:300px;left:10px;top:10px;"><input type="text" class="form-control" id="etsi"></li>
 				<li style="top:10px;left:20px;"><button  class="btn btn-primary" id="search_btn">Etsi</button></li>
 			</ul>

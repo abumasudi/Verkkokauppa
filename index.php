@@ -26,7 +26,7 @@ if(isset($_SESSION["uid"])){
 			</div>
 			<ul class="nav navbar-nav">
 				<li><a href="index.php"> <span class="glyphicon glyphicon-home"> </span> Etusivu</a></li>
-				<li><a href="#"><span class="glyphicon glyphicon-modal-window"></span> Tuotteet</a></li>
+				<li><a href="index.php"><span class="glyphicon glyphicon-modal-window"></span> Tuotteet</a></li>
 				<li style="width:300px;left:10px;top:10px;"><input type="text" class="form-control" id="etsi"></li>
 				<li style="top:10px;left:20px;"><button  class="btn btn-primary" id="search_btn">Etsi</button></li>
 			</ul>
@@ -59,14 +59,14 @@ if(isset($_SESSION["uid"])){
 									<input type="password" class="form-control" id="password" required/>
 									<p><br/></p>
 									<a href="#" style="color:white; list-style:none;">Unohditko salasana?</a>
-									<input type="submit" class="btn btn-success" style="float:right;" id="login" value="Login">
+									<input type="submit" class="btn btn-success" style="" id="login" value="Kirjaudu">
 								</div>
 								<div class="panel-footer" id="e-msg"></div>
 							</div>
 						</div>
 					</ul>
 				</li>
-				<li><a href="#"><span class="glyphicon glyphicon-user"></span> Rekisteröidy</a></li>
+				<li><a href="asiakkaan_rekisteroityminen.php"><span class="glyphicon glyphicon-user"></span> Rekisteröidy</a></li>
 				
 			</ul>
 		</div>
@@ -98,6 +98,9 @@ if(isset($_SESSION["uid"])){
 				</div> -->
 			</div>
 			<div class="col-md-8">
+			<div class="row">
+				<div class="col-md-12" id="tuote_viesti"></div>
+			</div>
 				<div class="panel panel-info">
 					<div class="panel-heading">Tuotteet</div>
 					<div class="panel-body">
